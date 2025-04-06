@@ -1,0 +1,14 @@
+<select (change)="selectCategory($event)">
+    <option value="">Select a region</option>
+    @for (category of categories(); track category.name) {
+    <option [value]="category.id">{{category.name}} </option>
+    }
+</select>
+
+@for (shop of shops(); track shop.id) {
+<app-single [shop]="shop"></app-single>
+}
+
+@empty {
+<p>Please select a category to view shops</p>
+}

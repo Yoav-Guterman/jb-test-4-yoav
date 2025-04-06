@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  database:
+    container_name: nature-websites-compose-database
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./database/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    environment:
+      - MONGO_INITDB_DATABASE=shops
+
+  backend:
+    container_name: nature-websites-compose-backend
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=compose
+    build: ./backend
+    depends_on:
+      - database
+
+  frontend:
+    container_name: nature-websites-compose-frontend
+    ports:
+      - 4200:80
+    build: ./frontend
+    depends_on:
+      - backend
