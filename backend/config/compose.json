@@ -2,7 +2,7 @@
     "mongoose": {
         "host": "database",
         "port": 27017,
-        "database": "shops"
+        "database": "bankAccountsOps"
     },
     "io": {
         "url": "ws://io:3003"

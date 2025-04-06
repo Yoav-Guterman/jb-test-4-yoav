@@ -1,7 +1,7 @@
 {
     "app": {
         "port": "3000",
-        "name": "nature-websites",
+        "name": "bankAccountsOperations",
         "secret": "MySecret",
         "jwtSecret": "myJwtSecret"
     },
@@ -37,6 +37,6 @@
     "mongoose": {
         "host": "127.0.0.1",
         "port": 27017,
-        "database": "shops"
+        "database": "bankAccountsOps"
     }
 }
