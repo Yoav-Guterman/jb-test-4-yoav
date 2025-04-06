@@ -1,3 +1,7 @@
-p {
-    color: green;
+app-footer {
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
 }

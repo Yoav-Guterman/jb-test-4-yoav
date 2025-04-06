@@ -1,0 +1,16 @@
+#operation {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: var(--box-shadow);
+}
+
+#operation div {
+    margin-bottom: 0.5rem;
+}
+
+#operation div:first-child {
+    font-weight: bold;
+    color: var(--primary-color);
+}

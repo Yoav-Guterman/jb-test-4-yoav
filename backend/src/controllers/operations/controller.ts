@@ -11,12 +11,11 @@ export async function getOperationsByAccountId(req: Request<{ accountNumber: str
     }
 }
 
-export async function createOperation(req: Request<{ accountNumber: string }>, res: Response, next: NextFunction) {
+export async function createOperation(req: Request, res: Response, next: NextFunction) {
     try {
 
-        const accountNumber = req.params.accountNumber
 
-        let createParams = { ...req.body, accountNumber: accountNumber, operationDate: new Date() }
+        let createParams = { ...req.body, operationDate: new Date() }
 
         const operation = new OperationModel(createParams)
         await operation.save()

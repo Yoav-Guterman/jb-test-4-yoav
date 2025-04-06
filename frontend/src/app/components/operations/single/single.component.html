@@ -1,0 +1,12 @@
+<!-- single.component.html -->
+<div id="operation">
+    <div>Operation type: {{operation()?.type}}</div>
+    <div>Amount: {{operation()?.metadata?.amount}}</div>
+
+    @if (isLoan()) {
+    <div>Interest rate: {{operation()?.metadata?.interest}}</div>
+    <div>Number of payments: {{operation()?.metadata?.payments}}</div>
+    }
+
+    <div>Date: {{operation()?.operationDate | date:'shortDate' }}</div>
+</div>

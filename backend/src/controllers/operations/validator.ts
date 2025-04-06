@@ -6,7 +6,8 @@ export const newOperationValidator = Joi.object({
         amount: Joi.number().required(),
         interest: Joi.number().optional(),
         payments: Joi.number().optional()
-    }).required()
+    }).required(),
+    accountNumber: Joi.string().min(4).max(14).required()
 })
 
 export const accountNumberValidator = Joi.object({

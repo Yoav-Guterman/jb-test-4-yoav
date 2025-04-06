@@ -7,6 +7,6 @@ import paramsValidation from "../middlewares/params-validation";
 const operationsRouter = Router()
 
 operationsRouter.get('/:accountNumber', paramsValidation(accountNumberValidator), getOperationsByAccountId)
-operationsRouter.post('/:accountNumber', paramsValidation(accountNumberValidator), validation(newOperationValidator), createOperation)
+operationsRouter.post('/', validation(newOperationValidator), createOperation)
 
 export default operationsRouter

@@ -20,8 +20,8 @@ export class OperationsService {
     return list
   }
 
-  async createOperation(draft: Draft, accountNumber: string): Promise<Operation> {
-    const observable = this.httpClient.post<Operation>(`${environment.restServerUrl}/operations/${accountNumber}`, draft)
+  async createOperation(draft: Draft): Promise<Operation> {
+    const observable = this.httpClient.post<Operation>(`${environment.restServerUrl}/operations/`, draft)
     const newWebsite = firstValueFrom(observable)
     return newWebsite
   }

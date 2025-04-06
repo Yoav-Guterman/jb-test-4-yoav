@@ -2,17 +2,17 @@ version: '3.8'
 
 services:
   database:
-    container_name: nature-websites-compose-database
+    container_name: bank-account-operations-database
     image: mongo:latest
     ports:
       - 27017:27017
     volumes:
       - ./database/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     environment:
-      - MONGO_INITDB_DATABASE=shops
+      - MONGO_INITDB_DATABASE=bankAccountsOps
 
   backend:
-    container_name: nature-websites-compose-backend
+    container_name: bank-account-operations-backend
     ports:
       - 3000:3000
     environment:
@@ -22,7 +22,7 @@ services:
       - database
 
   frontend:
-    container_name: nature-websites-compose-frontend
+    container_name: nature-websites-compose-database
     ports:
       - 4200:80
     build: ./frontend

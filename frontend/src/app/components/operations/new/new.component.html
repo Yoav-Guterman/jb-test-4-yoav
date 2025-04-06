@@ -1,0 +1,41 @@
+<!-- new.component.html -->
+<form [formGroup]="newForm" (ngSubmit)="addOperation()">
+    <div>
+        <input formControlName="accountNumber" placeholder="Account Number">
+        @if (newForm.get('accountNumber')?.invalid && newForm.get('accountNumber')?.touched) {
+        <div class="error">Account number is required (4-14 characters)</div>
+        }
+    </div>
+
+    <div>
+        <select formControlName="type" (change)="onTypeChange()">
+            @for (type of operationTypes; track type) {
+            <option [value]="type">{{type}}</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <input type="number" formControlName="amount" placeholder="Amount">
+        @if (newForm.get('amount')?.invalid && newForm.get('amount')?.touched) {
+        <div class="error">Valid amount is required</div>
+        }
+    </div>
+
+    @if (isLoan()) {
+    <div>
+        <input type="number" formControlName="interest" placeholder="Interest Rate (2-10)">
+        @if (newForm.get('interest')?.invalid && newForm.get('interest')?.touched) {
+        <div class="error">Interest between 2-10 is required</div>
+        }
+    </div>
+    <div>
+        <input type="number" formControlName="payments" placeholder="Number of Payments (1-36)">
+        @if (newForm.get('payments')?.invalid && newForm.get('payments')?.touched) {
+        <div class="error">Number of payments (1-36) is required</div>
+        }
+    </div>
+    }
+
+    <button type="submit" [disabled]="newForm.invalid">Create</button>
+</form>
