@@ -1,41 +1,65 @@
-<!-- new.component.html -->
 <form [formGroup]="newForm" (ngSubmit)="addOperation()">
-    <div>
-        <input formControlName="accountNumber" placeholder="Account Number">
-        @if (newForm.get('accountNumber')?.invalid && newForm.get('accountNumber')?.touched) {
-        <div class="error">Account number is required (4-14 characters)</div>
+    <input formControlName="accountNumber" placeholder="Account Number">
+    <div [hidden]="newForm.controls.accountNumber.valid || !newForm.controls.accountNumber.dirty">
+        @if (newForm.controls.accountNumber.errors?.['required']) {
+        <span>Account number is required</span>
+        }
+        @else if (newForm.controls.accountNumber.errors?.['minlength']) {
+        <span>Account number must be at least 4 characters long</span>
+        }
+        @else if (newForm.controls.accountNumber.errors?.['maxlength']) {
+        <span>Account number must be less than 14 characters long</span>
         }
     </div>
 
-    <div>
-        <select formControlName="type" (change)="onTypeChange()">
-            @for (type of operationTypes; track type) {
-            <option [value]="type">{{type}}</option>
-            }
-        </select>
+    <select formControlName="type" (change)="onTypeChange()">
+        @for (type of operationTypes; track type) {
+        <option [value]="type">{{type}}</option>
+        }
+    </select>
+    <div [hidden]="newForm.controls.type.valid || !newForm.controls.type.dirty">
+        @if (newForm.controls.type.errors?.['required']) {
+        <span>Operation type is required</span>
+        }
     </div>
 
-    <div>
-        <input type="number" formControlName="amount" placeholder="Amount">
-        @if (newForm.get('amount')?.invalid && newForm.get('amount')?.touched) {
-        <div class="error">Valid amount is required</div>
+    <input type="number" formControlName="amount" placeholder="Amount">
+    <div [hidden]="newForm.controls.amount.valid || !newForm.controls.amount.dirty">
+        @if (newForm.controls.amount.errors?.['required']) {
+        <span>Amount is required</span>
+        }
+        @else if (newForm.controls.amount.errors?.['min']) {
+        <span>Amount must be greater than zero</span>
         }
     </div>
 
     @if (isLoan()) {
-    <div>
-        <input type="number" formControlName="interest" placeholder="Interest Rate (2-10)">
-        @if (newForm.get('interest')?.invalid && newForm.get('interest')?.touched) {
-        <div class="error">Interest between 2-10 is required</div>
+    <input type="number" formControlName="interest" placeholder="Interest Rate (2-10)">
+    <div [hidden]="newForm.controls.interest.valid || !newForm.controls.interest.dirty">
+        @if (newForm.controls.interest.errors?.['required']) {
+        <span>Interest rate is required</span>
+        }
+        @else if (newForm.controls.interest.errors?.['min']) {
+        <span>Interest rate must be at least 2</span>
+        }
+        @else if (newForm.controls.interest.errors?.['max']) {
+        <span>Interest rate must not exceed 10</span>
         }
     </div>
-    <div>
-        <input type="number" formControlName="payments" placeholder="Number of Payments (1-36)">
-        @if (newForm.get('payments')?.invalid && newForm.get('payments')?.touched) {
-        <div class="error">Number of payments (1-36) is required</div>
+
+    <input type="number" formControlName="payments" placeholder="Number of Payments (1-36)">
+    <div [hidden]="newForm.controls.payments.valid || !newForm.controls.payments.dirty">
+        @if (newForm.controls.payments.errors?.['required']) {
+        <span>Number of payments is required</span>
+        }
+        @else if (newForm.controls.payments.errors?.['min']) {
+        <span>Must have at least 1 payment</span>
+        }
+        @else if (newForm.controls.payments.errors?.['max']) {
+        <span>Number of payments cannot exceed 36</span>
         }
     </div>
     }
 
-    <button type="submit" [disabled]="newForm.invalid">Create</button>
+    <button type="submit">Create</button>
 </form>
