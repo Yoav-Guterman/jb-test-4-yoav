@@ -1,0 +1,25 @@
+<form [formGroup]="newForm" (ngSubmit)="showOperations()">
+    <input formControlName="accountNumber" placeholder="insert account Number">
+    <div [hidden]="newForm.controls.accountNumber.valid || !newForm.controls.accountNumber.dirty">
+        @if (newForm.controls.accountNumber.errors?.['required']) {
+        <span>account Number is required</span>
+        }
+        @else if (newForm.controls.accountNumber.errors?.['minlength']) {
+        <span>account Number must be at least 4 characters long</span>
+        }
+        @else if (newForm.controls.accountNumber.errors?.['maxlength']) {
+        <span>account Number must be less than 14 characters long</span>
+        }
+    </div>
+
+    <button>search Operations</button>
+</form>
+
+<div id="list">
+    @for (operation of operations(); track operation.id) {
+    <app-single [operation]="operation"></app-single>
+    }
+    @empty {
+    <p>account is not selected or have no operations yet.</p>
+    }
+</div>

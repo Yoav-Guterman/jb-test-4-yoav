@@ -1,0 +1,65 @@
+<form [formGroup]="newForm" (ngSubmit)="addOperation()">
+    <input formControlName="accountNumber" placeholder="Account Number">
+    <div [hidden]="newForm.controls.accountNumber.valid || !newForm.controls.accountNumber.dirty">
+        @if (newForm.controls.accountNumber.errors?.['required']) {
+        <span>Account number is required</span>
+        }
+        @else if (newForm.controls.accountNumber.errors?.['minlength']) {
+        <span>Account number must be at least 4 characters long</span>
+        }
+        @else if (newForm.controls.accountNumber.errors?.['maxlength']) {
+        <span>Account number must be less than 14 characters long</span>
+        }
+    </div>
+
+    <select formControlName="type" (change)="onTypeChange()">
+        @for (type of operationTypes; track type) {
+        <option [value]="type">{{type}}</option>
+        }
+    </select>
+    <div [hidden]="newForm.controls.type.valid || !newForm.controls.type.dirty">
+        @if (newForm.controls.type.errors?.['required']) {
+        <span>Operation type is required</span>
+        }
+    </div>
+
+    <input type="number" formControlName="amount" placeholder="Amount">
+    <div [hidden]="newForm.controls.amount.valid || !newForm.controls.amount.dirty">
+        @if (newForm.controls.amount.errors?.['required']) {
+        <span>Amount is required</span>
+        }
+        @else if (newForm.controls.amount.errors?.['min']) {
+        <span>Amount must be greater than zero</span>
+        }
+    </div>
+
+    @if (isLoan()) {
+    <input type="number" formControlName="interest" placeholder="Interest Rate (2-10)">
+    <div [hidden]="newForm.controls.interest.valid || !newForm.controls.interest.dirty">
+        @if (newForm.controls.interest.errors?.['required']) {
+        <span>Interest rate is required</span>
+        }
+        @else if (newForm.controls.interest.errors?.['min']) {
+        <span>Interest rate must be at least 2</span>
+        }
+        @else if (newForm.controls.interest.errors?.['max']) {
+        <span>Interest rate must not exceed 10</span>
+        }
+    </div>
+
+    <input type="number" formControlName="payments" placeholder="Number of Payments (1-36)">
+    <div [hidden]="newForm.controls.payments.valid || !newForm.controls.payments.dirty">
+        @if (newForm.controls.payments.errors?.['required']) {
+        <span>Number of payments is required</span>
+        }
+        @else if (newForm.controls.payments.errors?.['min']) {
+        <span>Must have at least 1 payment</span>
+        }
+        @else if (newForm.controls.payments.errors?.['max']) {
+        <span>Number of payments cannot exceed 36</span>
+        }
+    </div>
+    }
+
+    <button type="submit">Create</button>
+</form>
